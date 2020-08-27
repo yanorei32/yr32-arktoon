@@ -19,12 +19,12 @@
 	uniform float _BumpScaleSecondary;
 	uniform sampler2D _EmissionMapSecondary; uniform float4 _EmissionMapSecondary_ST;
 	uniform float4 _EmissionColorSecondary;
-#   define REF_MAINTEX _MainTexSecondary
-#   define REF_COLOR _ColorSecondary
-#   define REF_BUMPMAP _BumpMapSecondary
-#   define REF_BUMPSCALE _BumpScaleSecondary
-#   define REF_EMISSIONMAP _EmissionMapSecondary
-#   define REF_EMISSIONCOLOR _EmissionColorSecondary
+#define REF_MAINTEX _MainTexSecondary
+#define REF_COLOR _ColorSecondary
+#define REF_BUMPMAP _BumpMapSecondary
+#define REF_BUMPSCALE _BumpScaleSecondary
+#define REF_EMISSIONMAP _EmissionMapSecondary
+#define REF_EMISSIONCOLOR _EmissionColorSecondary
 #else
 	// Main, Normal, Emission
 	UNITY_DECLARE_TEX2D(_MainTex); uniform float4 _MainTex_ST;
@@ -33,12 +33,12 @@
 	uniform float _BumpScale;
 	uniform sampler2D _EmissionMap; uniform float4 _EmissionMap_ST;
 	uniform float4 _EmissionColor;
-#   define REF_MAINTEX _MainTex
-#   define REF_COLOR _Color
-#   define REF_BUMPMAP _BumpMap
-#   define REF_BUMPSCALE _BumpScale
-#   define REF_EMISSIONMAP _EmissionMap
-#   define REF_EMISSIONCOLOR _EmissionColor
+#define REF_MAINTEX _MainTex
+#define REF_COLOR _Color
+#define REF_BUMPMAP _BumpMap
+#define REF_BUMPSCALE _BumpScale
+#define REF_EMISSIONMAP _EmissionMap
+#define REF_EMISSIONCOLOR _EmissionColor
 #endif
 
 // Alpha Mask

@@ -175,10 +175,10 @@ void geom(triangle v2g IN[3], inout TriangleStream<VertexOutput> tristream)
 			#endif
 
 			#ifndef ARKTOON_ADD
-				o.lightColor0		  = IN[i].lightColor0;
-				o.lightColor1		  = IN[i].lightColor1;
-				o.lightColor2		  = IN[i].lightColor2;
-				o.lightColor3		  = IN[i].lightColor3;
+				o.lightColor0 = IN[i].lightColor0;
+				o.lightColor1 = IN[i].lightColor1;
+				o.lightColor2 = IN[i].lightColor2;
+				o.lightColor3 = IN[i].lightColor3;
 				#if UNITY_SHOULD_SAMPLE_SH
 					if (_UseVertexLight) {
 						calcAmbientByShade4PointLights(0, o);
@@ -228,10 +228,10 @@ void geom(triangle v2g IN[3], inout TriangleStream<VertexOutput> tristream)
 			#endif
 
 			#ifndef ARKTOON_ADD
-				o.lightColor0		  = IN[iii].lightColor0;
-				o.lightColor1		  = IN[iii].lightColor1;
-				o.lightColor2		  = IN[iii].lightColor2;
-				o.lightColor3		  = IN[iii].lightColor3;
+				o.lightColor0 = IN[iii].lightColor0;
+				o.lightColor1 = IN[iii].lightColor1;
+				o.lightColor2 = IN[iii].lightColor2;
+				o.lightColor3 = IN[iii].lightColor3;
 				#if UNITY_SHOULD_SAMPLE_SH
 					if (_UseVertexLight) {
 						calcAmbientByShade4PointLights(_DoubleSidedFlipBackfaceNormal, o);
@@ -279,10 +279,10 @@ void geom(triangle v2g IN[3], inout TriangleStream<VertexOutput> tristream)
 		#endif
 
 		#ifndef ARKTOON_ADD
-			o.lightColor0		  = IN[ii].lightColor0;
-			o.lightColor1		  = IN[ii].lightColor1;
-			o.lightColor2		  = IN[ii].lightColor2;
-			o.lightColor3		  = IN[ii].lightColor3;
+			o.lightColor0 = IN[ii].lightColor0;
+			o.lightColor1 = IN[ii].lightColor1;
+			o.lightColor2 = IN[ii].lightColor2;
+			o.lightColor3 = IN[ii].lightColor3;
 			#if UNITY_SHOULD_SAMPLE_SH
 				if (_UseVertexLight) {
 					calcAmbientByShade4PointLights(0, o);
