@@ -12,10 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace Yr32ArktoonShaders
-{
-	public class ArktoonInspector : ShaderGUI
-	{
+namespace Yr32ArktoonShaders {
+	public class ArktoonInspector : ShaderGUI {
 		#region MaterialProperties
 		MaterialProperty BaseTexture;
 		MaterialProperty BaseColor;
@@ -184,12 +182,11 @@ namespace Yr32ArktoonShaders
 		GUIStyle style = new GUIStyle();
 
 
-		public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props)
-		{
+		public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props) {
 			Material material = materialEditor.target as Material;
 
 			// バージョンを逐一確認して、アセットバージョンが高い場合はマテリアルをマイグレーション
-			if( material.GetInt("_Version") < ArktoonManager.AssetVersionInt) {
+			if (material.GetInt("_Version") < ArktoonManager.AssetVersionInt) {
 				ArktoonMigrator.MigrateArktoonMaterial(material);
 			}
 
@@ -389,14 +386,14 @@ namespace Yr32ArktoonShaders
 					UIHelper.DrawWithGroup(() => {
 						materialEditor.ShaderProperty(UseDoubleSided, "Is Double Sided");
 						var doublesided = UseDoubleSided.floatValue;
-						if(doublesided > 0){
+						if (doublesided > 0) {
 							ShadowCasterCulling.floatValue = 0;
 							EditorGUI.indentLevel ++;
 							materialEditor.ShaderProperty(DoubleSidedFlipBackfaceNormal, "Flip backface normal");
 							materialEditor.ShaderProperty(DoubleSidedBackfaceLightIntensity, "Backface Light Intensity");
 							materialEditor.ShaderProperty(DoubleSidedBackfaceUseColorShift, "Use Backface Color Shift");
 							var backfaceColorShift = DoubleSidedBackfaceUseColorShift.floatValue;
-							if(backfaceColorShift > 0) {
+							if (backfaceColorShift > 0) {
 								EditorGUI.indentLevel ++;
 								materialEditor.ShaderProperty(DoubleSidedBackfaceHueShiftFromBase, "Hue Shift");
 								materialEditor.ShaderProperty(DoubleSidedBackfaceSaturationFromBase, "Saturation");
@@ -408,12 +405,14 @@ namespace Yr32ArktoonShaders
 						} else {
 							ShadowCasterCulling.floatValue = 2;
 						}
-						if(isFade) materialEditor.ShaderProperty(ZWrite, "ZWrite");
+						if (isFade) {
+							materialEditor.ShaderProperty(ZWrite, "ZWrite");
+						}
 					});
 				});
 
 				// Secondary Common
-				if(isStencilReaderDouble) {
+				if (isStencilReaderDouble) {
 					UIHelper.ShurikenHeader("Secondary Common");
 					UIHelper.DrawWithGroup(() => {
 						materialEditor.TexturePropertySingleLine(new GUIContent("Main Texture", "Base Color Texture (RGB)"), BaseTextureSecondary, BaseColorSecondary);
@@ -423,7 +422,7 @@ namespace Yr32ArktoonShaders
 				}
 
 				// AlphaMask
-				if(isFade){
+				if (isFade) {
 					IsShowAlphaMask = UIHelper.ShurikenFoldout("AlphaMask", IsShowAlphaMask);
 					if (IsShowAlphaMask) {
 						UIHelper.DrawWithGroup(() => {
@@ -433,7 +432,7 @@ namespace Yr32ArktoonShaders
 				}
 
 				// Refraction
-				if(isRefracted){
+				if (isRefracted) {
 					UIHelper.ShurikenHeader("Refraction");
 					UIHelper.DrawWithGroup(() => {
 						materialEditor.ShaderProperty(RefractionFresnelExp, "Fresnel Exp");
@@ -442,7 +441,7 @@ namespace Yr32ArktoonShaders
 				}
 
 				// Alpha Cutout
-				if(isCutout){
+				if (isCutout) {
 					UIHelper.ShurikenHeader("Alpha Cutout");
 					UIHelper.DrawWithGroup(() => {
 						materialEditor.ShaderProperty(CutoutCutoutAdjust, "Cutoff Adjust");
@@ -467,15 +466,14 @@ namespace Yr32ArktoonShaders
 					UIHelper.DrawWithGroup(() => {
 						materialEditor.ShaderProperty(ShadowUseStep, "Use Steps");
 						var useStep = ShadowUseStep.floatValue;
-						if(useStep > 0)
-						{
+						if (useStep > 0) {
 							EditorGUI.indentLevel ++;
 							ShadowSteps.floatValue = EditorGUILayout.IntSlider(
 								new GUIContent("Steps"),
 								(int)ShadowSteps.floatValue,
 								(int)ShadowSteps.rangeLimits.x,
-								(int)ShadowSteps.rangeLimits.y)
-							;
+								(int)ShadowSteps.rangeLimits.y
+							);
 							EditorGUI.indentLevel --;
 						}
 					});
@@ -483,8 +481,7 @@ namespace Yr32ArktoonShaders
 					UIHelper.DrawWithGroup(() => {
 						materialEditor.ShaderProperty(ShadowPlanBUsePlanB, "Use Custom Shade");
 						var usePlanB = ShadowPlanBUsePlanB.floatValue;
-						if(usePlanB > 0)
-						{
+						if (usePlanB > 0) {
 							EditorGUILayout.HelpBox(
 								"[Strength] max is recommended for using custom shade." + Environment.NewLine + "Custom Shadeの使用時は[Strength]を最大値に設定することを推奨", MessageType.Info);
 							materialEditor.ShaderProperty(ShadowPlanBDefaultShadowMix, "Mix Default Shade");
@@ -493,13 +490,10 @@ namespace Yr32ArktoonShaders
 								EditorGUI.indentLevel ++;
 								materialEditor.ShaderProperty(ShadowPlanBUseCustomShadowTexture, "Use Shade Texture");
 								var useShadeTexture = ShadowPlanBUseCustomShadowTexture.floatValue;
-								if(useShadeTexture > 0)
-								{
+								if (useShadeTexture > 0) {
 									materialEditor.ShaderProperty(ShadowPlanBCustomShadowTexture, "Shade Texture");
 									materialEditor.ShaderProperty(ShadowPlanBCustomShadowTextureRGB, "Shade Texture RGB");
-								}
-								else
-								{
+								} else {
 									materialEditor.ShaderProperty(ShadowPlanBHueShiftFromBase, "Hue Shift");
 									materialEditor.ShaderProperty(ShadowPlanBSaturationFromBase, "Saturation");
 									materialEditor.ShaderProperty(ShadowPlanBValueFromBase, "Value");
@@ -512,17 +506,15 @@ namespace Yr32ArktoonShaders
 								EditorGUI.indentLevel ++;
 								materialEditor.ShaderProperty(CustomShadow2nd, "Use");
 								var customshadow2nd = CustomShadow2nd.floatValue;
-								if(customshadow2nd > 0)
-								{
+								if (customshadow2nd > 0) {
 									materialEditor.ShaderProperty(ShadowPlanB2border, "Border");
 									materialEditor.ShaderProperty(ShadowPlanB2borderBlur, "Blur");
 									materialEditor.ShaderProperty(ShadowPlanB2UseCustomShadowTexture, "Use Shade Texture");
 									var useShadeTexture2 = ShadowPlanB2UseCustomShadowTexture.floatValue;
-									if(useShadeTexture2 > 0)
-									{
+									if (useShadeTexture2 > 0) {
 										materialEditor.ShaderProperty(ShadowPlanB2CustomShadowTexture,  "Shade Texture");
 										materialEditor.ShaderProperty(ShadowPlanB2CustomShadowTextureRGB,  "Shade Texture RGB");
-									}else{
+									} else {
 										materialEditor.ShaderProperty(ShadowPlanB2HueShiftFromBase, "Hue Shift");
 										materialEditor.ShaderProperty(ShadowPlanB2SaturationFromBase, "Saturation");
 										materialEditor.ShaderProperty(ShadowPlanB2ValueFromBase, "Value");
@@ -538,8 +530,7 @@ namespace Yr32ArktoonShaders
 				UIHelper.ShurikenHeader("Gloss");
 				materialEditor.DrawShaderPropertySameLIne(UseGloss);
 				var isEnabledGloss = UseGloss.floatValue;
-				if(isEnabledGloss > 0)
-				{
+				if (isEnabledGloss > 0) {
 					UIHelper.DrawWithGroup(() => {
 						UIHelper.DrawWithGroup(() => {
 							materialEditor.TexturePropertySingleLine(new GUIContent("Smoothness & Mask", "Smoothness and Mask Texture"), GlossBlendMask, GlossBlend);
@@ -551,22 +542,21 @@ namespace Yr32ArktoonShaders
 				}
 
 				// Outline
-				if(!isRefracted) {
+				if (!isRefracted) {
 					UIHelper.ShurikenHeader("Outline");
 					materialEditor.DrawShaderPropertySameLIne(UseOutline);
 					var useOutline = UseOutline.floatValue;
-					if(useOutline > 0)
-					{
+					if (useOutline > 0) {
 						UIHelper.DrawWithGroup(() => {
 							UIHelper.DrawWithGroup(() => {
 								materialEditor.TexturePropertySingleLine(new GUIContent("Width & Mask", "Width and Mask Texture"), OutlineWidthMask, OutlineWidth);
 								materialEditor.TextureScaleOffsetPropertyIndent(OutlineWidthMask);
 							});
 							UIHelper.DrawWithGroup(() => {
-								if(!isOpaque) {
+								if (!isOpaque) {
 										materialEditor.TexturePropertySingleLine(new GUIContent("Cutoff Mask & Range", "Cutoff Mask Texture & Range"), OutlineMask, OutlineCutoffRange);
 										materialEditor.TextureScaleOffsetPropertyIndent(OutlineMask);
-								}else{
+								} else {
 									EditorGUILayout.LabelField("Cutoff Mask & Range","Unavailable in Opaque", EditorStyles.centeredGreyMiniLabel);
 								}
 							});
@@ -576,7 +566,7 @@ namespace Yr32ArktoonShaders
 								materialEditor.ShaderProperty(OutlineTextureColorRate,"Base Color Mix");
 								materialEditor.ShaderProperty(OutlineUseColorShift, "Use Color Shift");
 								var isEnabledOutlineColorShift = OutlineUseColorShift.floatValue;
-								if(isEnabledOutlineColorShift > 0) {
+								if (isEnabledOutlineColorShift > 0) {
 									EditorGUI.indentLevel ++;
 									materialEditor.ShaderProperty(OutlineHueShiftFromBase, "Hue Shift");
 									materialEditor.ShaderProperty(OutlineSaturationFromBase, "Saturation");
@@ -593,8 +583,7 @@ namespace Yr32ArktoonShaders
 				UIHelper.ShurikenHeader("MatCap");
 				materialEditor.DrawShaderPropertySameLIne(MatcapBlendMode);
 				var useMatcap = MatcapBlendMode.floatValue;
-				if(useMatcap != 3) // Not 'Unused'
-				{
+				if (useMatcap != 3) /* Not 'Unused' */ {
 					UIHelper.DrawWithGroup(() => {
 						UIHelper.DrawWithGroup(() => {
 							materialEditor.TexturePropertySingleLine(new GUIContent("Blend & Mask", "Blend and Mask Texture"), MatcapBlendMask, MatcapBlend);
@@ -613,8 +602,7 @@ namespace Yr32ArktoonShaders
 				UIHelper.ShurikenHeader("Reflection");
 				materialEditor.DrawShaderPropertySameLIne(UseReflection);
 				var useReflection = UseReflection.floatValue;
-				if(useReflection > 0)
-				{
+				if (useReflection > 0) {
 					UIHelper.DrawWithGroup(() => {
 						materialEditor.ShaderProperty(UseReflectionProbe,"Use Reflection Probe");
 						var useProbe = UseReflectionProbe.floatValue;
@@ -640,8 +628,7 @@ namespace Yr32ArktoonShaders
 				UIHelper.ShurikenHeader("Rim");
 				materialEditor.DrawShaderPropertySameLIne(UseRim);
 				var useRim = UseRim.floatValue;
-				if(useRim > 0)
-				{
+				if (useRim > 0) {
 					UIHelper.DrawWithGroup(() => {
 						UIHelper.DrawWithGroup(() => {
 							materialEditor.TexturePropertySingleLine(new GUIContent("Blend & Mask", "Blend and Mask Texture"), RimBlendMask, RimBlend);
@@ -662,8 +649,7 @@ namespace Yr32ArktoonShaders
 				UIHelper.ShurikenHeader("Shade Cap");
 				materialEditor.DrawShaderPropertySameLIne(ShadowCapBlendMode);
 				var useShadowCap = ShadowCapBlendMode.floatValue;
-				if(useShadowCap != 3) // Not 'Unused'
-				{
+				if (useShadowCap != 3) /* Not 'Unused' */ {
 					UIHelper.DrawWithGroup(() => {
 						UIHelper.DrawWithGroup(() => {
 							materialEditor.TexturePropertySingleLine(new GUIContent("Blend & Mask", "Blend and Mask Texture"), ShadowCapBlendMask, ShadowCapBlend);
@@ -678,38 +664,38 @@ namespace Yr32ArktoonShaders
 				}
 
 				// Stencil Writer
-				if(isStencilWriter)
-				{
+				if (isStencilWriter) {
 					UIHelper.ShurikenHeader("Stencil Writer");
 					UIHelper.DrawWithGroup(() => {
 						materialEditor.ShaderProperty(StencilNumber,"Stencil Number");
-						if(isStencilWriterMask) {
+						if (isStencilWriterMask) {
 							materialEditor.TexturePropertySingleLine(new GUIContent("Stencil Mask & Range", "Stencil Mask and Range"), StencilMaskTex, StencilMaskAdjust);
 							materialEditor.TextureScaleOffsetPropertyIndent(StencilMaskTex);
 						}
-						if(isStencilWriterMask) materialEditor.ShaderProperty(StencilMaskAlphaDither, "Alpha(Dither)");
+						if (isStencilWriterMask) {
+							materialEditor.ShaderProperty(StencilMaskAlphaDither, "Alpha(Dither)");
+						}
 					});
 				}
 
 				// Stencil Reader
-				if(isStencilReader)
-				{
+				if (isStencilReader) {
 					UIHelper.ShurikenHeader("Stencil Reader");
-					if(isStencilReaderDouble) {
+					if (isStencilReaderDouble) {
 						UIHelper.DrawWithGroup(() => {
 							UIHelper.DrawWithGroup(() => {
 								EditorGUILayout.LabelField("Primary", EditorStyles.boldLabel);
-								EditorGUI.indentLevel++;
+								EditorGUI.indentLevel ++;
 								materialEditor.ShaderProperty(StencilNumber,"Number");
 								materialEditor.ShaderProperty(StencilCompareAction,"Compare Action");
-								EditorGUI.indentLevel--;
+								EditorGUI.indentLevel --;
 							});
 							UIHelper.DrawWithGroup(() => {
 								EditorGUILayout.LabelField("Secondary", EditorStyles.boldLabel);
-								EditorGUI.indentLevel++;
+								EditorGUI.indentLevel ++;
 								materialEditor.ShaderProperty(StencilNumberSecondary,"Number");
 								materialEditor.ShaderProperty(StencilCompareActionSecondary,"Compare Action");
-								EditorGUI.indentLevel--;
+								EditorGUI.indentLevel --;
 							});
 						});
 					} else {
@@ -724,7 +710,7 @@ namespace Yr32ArktoonShaders
 				UIHelper.ShurikenHeader("Parallaxed Emission");
 				materialEditor.DrawShaderPropertySameLIne(UseEmissionParallax);
 				var useEmissionPara = UseEmissionParallax.floatValue;
-				if(useEmissionPara > 0){
+				if (useEmissionPara > 0) {
 					UIHelper.DrawWithGroup(() => {
 						UIHelper.DrawWithGroup(() => {
 							materialEditor.TexturePropertySingleLine(new GUIContent("Texture & Color", "Texture and Color"), EmissionParallaxTex, EmissionParallaxColor);
@@ -743,8 +729,7 @@ namespace Yr32ArktoonShaders
 				}
 
 				// Scrolled Emission
-				if(isEmissiveFreak)
-				{
+				if (isEmissiveFreak) {
 					UIHelper.ShurikenHeader("Emissive Freak");
 					UIHelper.DrawWithGroup(() => {
 						UIHelper.DrawWithGroup(() => {
@@ -810,7 +795,7 @@ namespace Yr32ArktoonShaders
 				IsShowAdvanced = UIHelper.ShurikenFoldout("Advanced / Experimental (Click to Open)", IsShowAdvanced);
 				if (IsShowAdvanced) {
 					UIHelper.DrawWithGroup(() => {
-						EditorGUILayout.HelpBox("These are some shade tweaking. no need to change usually." + Environment.NewLine + "ほとんどのケースで触る必要のないやつら。",MessageType.Info);
+						EditorGUILayout.HelpBox("These are some shade tweaking. no need to change usually." + Environment.NewLine + "ほとんどのケースで触る必要のないやつら。", MessageType.Info);
 						if (GUILayout.Button("Revert advanced params.")){
 							PointAddIntensity.floatValue = 1f;
 							PointShadowStrength.floatValue = 0.5f;
@@ -857,8 +842,7 @@ namespace Yr32ArktoonShaders
 							materialEditor.ShaderProperty(PointShadowborderBlurMask, "Shadow Border blur Mask(def:none)");
 							materialEditor.ShaderProperty(PointShadowUseStep, "Use Shadow Steps");
 							var usePointStep = PointShadowUseStep.floatValue;
-							if(usePointStep > 0)
-							{
+							if (usePointStep > 0) {
 								materialEditor.ShaderProperty(PointShadowSteps, " ");
 							}
 							materialEditor.ShaderProperty(UseVertexLight, "Use Per-vertex Light");
@@ -889,20 +873,18 @@ namespace Yr32ArktoonShaders
 				style.normal.textColor = EditorGUIUtility.isProSkin ? Color.white : Color.black;
 				EditorGUILayout.LabelField("Your Version : " + localVersion, style);
 
-				if (!string.IsNullOrEmpty(remoteVersion))
-				{
+				if (!string.IsNullOrEmpty(remoteVersion)) {
 					Version local_v = new Version(localVersion);
 					Version remote_v = new Version(remoteVersion);
 
-					if(remote_v > local_v)  {
+					if (remote_v > local_v) {
 						style.normal.textColor = EditorGUIUtility.isProSkin ? Color.cyan : Color.blue;
 						EditorGUILayout.LabelField("Remote Version : " + remoteVersion, style);
 						EditorGUILayout.BeginHorizontal( GUI.skin.box );
 						{
 							style.alignment = TextAnchor.MiddleLeft;
 							EditorGUILayout.LabelField("New version available : ", style);
-							if(GUILayout.Button("Open download page."))
-							{
+							if (GUILayout.Button("Open download page.")) {
 								System.Diagnostics.Process.Start("https://github.com/synqark/Arktoon-Shaders/releases");
 							}
 						}
@@ -914,12 +896,10 @@ namespace Yr32ArktoonShaders
 
 				// Docs
 				UIHelper.DrawWithGroupHorizontal(() => {
-					if(GUILayout.Button("How to use (Japanese)"))
-					{
+					if (GUILayout.Button("How to use (Japanese)")) {
 						System.Diagnostics.Process.Start("https://synqark.github.io/Arktoon-Shaders-Doc/");
 					}
-					if(GUILayout.Button("README.md (English)"))
-					{
+					if(GUILayout.Button("README.md (English)")) {
 						System.Diagnostics.Process.Start("https://github.com/synqark/Arktoon-Shaders/blob/master/README.md");
 					}
 				});
@@ -928,12 +908,11 @@ namespace Yr32ArktoonShaders
 		}
 	}
 
-	static class UIHelper
-	{
+	static class UIHelper {
 		static int HEADER_HEIGHT = 22;
 
 		public static void DrawShaderPropertySameLIne(this MaterialEditor editor, MaterialProperty property) {
-			Rect r = EditorGUILayout.GetControlRect(true,0,EditorStyles.layerMaskField);
+			Rect r = EditorGUILayout.GetControlRect(true, 0, EditorStyles.layerMaskField);
 			r.y -= HEADER_HEIGHT;
 			r.height = MaterialEditor.GetDefaultPropertyHeight(property);
 			editor.ShaderProperty(r, property, " ");
@@ -950,13 +929,13 @@ namespace Yr32ArktoonShaders
 			GUI.Box(rect, title, style);
 			return rect;
 		}
-		public static void ShurikenHeader(string title)
-		{
-			DrawShuriken(title,new Vector2(6f, -2f));
+
+		public static void ShurikenHeader(string title) {
+			DrawShuriken(title, new Vector2(6f, -2f));
 		}
-		public static bool ShurikenFoldout(string title, bool display)
-		{
-			var rect = DrawShuriken(title,new Vector2(20f, -2f));
+
+		public static bool ShurikenFoldout(string title, bool display) {
+			var rect = DrawShuriken(title, new Vector2(20f, -2f));
 			var e = Event.current;
 			var toggleRect = new Rect(rect.x + 4f, rect.y + 2f, 13f, 13f);
 			if (e.type == EventType.Repaint) {
@@ -968,41 +947,44 @@ namespace Yr32ArktoonShaders
 			}
 			return display;
 		}
-		public static void Vector2Property(MaterialProperty property, string name)
-		{
+
+		public static void Vector2Property(MaterialProperty property, string name) {
 			EditorGUI.BeginChangeCheck();
-			Vector2 vector2 = EditorGUILayout.Vector2Field(name,new Vector2(property.vectorValue.x, property.vectorValue.y),null);
-			if (EditorGUI.EndChangeCheck())
+			Vector2 vector2 = EditorGUILayout.Vector2Field(name, new Vector2(property.vectorValue.x, property.vectorValue.y), null);
+			if (EditorGUI.EndChangeCheck()) {
 				property.vectorValue = new Vector4(vector2.x, vector2.y);
+			}
 		}
-		public static void Vector4Property(MaterialProperty property, string name)
-		{
+
+		public static void Vector4Property(MaterialProperty property, string name) {
 			EditorGUI.BeginChangeCheck();
-			Vector4 vector4 = EditorGUILayout.Vector2Field(name,property.vectorValue,null);
-			if (EditorGUI.EndChangeCheck())
+			Vector4 vector4 = EditorGUILayout.Vector2Field(name, property.vectorValue, null);
+			if (EditorGUI.EndChangeCheck()) {
 				property.vectorValue = vector4;
+			}
 		}
-		public static void Vector2PropertyZW(MaterialProperty property, string name)
-		{
+
+		public static void Vector2PropertyZW(MaterialProperty property, string name) {
 			EditorGUI.BeginChangeCheck();
-			Vector2 vector2 = EditorGUILayout.Vector2Field(name,new Vector2(property.vectorValue.x, property.vectorValue.y),null);
-			if (EditorGUI.EndChangeCheck())
+			Vector2 vector2 = EditorGUILayout.Vector2Field(name, new Vector2(property.vectorValue.x, property.vectorValue.y), null);
+			if (EditorGUI.EndChangeCheck()) {
 				property.vectorValue = new Vector4(vector2.x, vector2.y);
+			}
 		}
-		public static void TextureScaleOffsetPropertyIndent(this MaterialEditor editor, MaterialProperty property)
-		{
+
+		public static void TextureScaleOffsetPropertyIndent(this MaterialEditor editor, MaterialProperty property) {
 			EditorGUI.indentLevel ++;
 			editor.TextureScaleOffsetProperty(property);
 			EditorGUI.indentLevel --;
 		}
-		public static void DrawWithGroup(Action action)
-		{
+
+		public static void DrawWithGroup(Action action) {
 			EditorGUILayout.BeginVertical( GUI.skin.box );
 			action();
 			EditorGUILayout.EndVertical();
 		}
-		public static void DrawWithGroupHorizontal(Action action)
-		{
+
+		public static void DrawWithGroupHorizontal(Action action) {
 			EditorGUILayout.BeginHorizontal( GUI.skin.box );
 			action();
 			EditorGUILayout.EndHorizontal();
@@ -1010,56 +992,45 @@ namespace Yr32ArktoonShaders
 	}
 
 	// シェーダーキーワードを作らないToggle (Unity 2018.2以降で存在するUIToggleと同じ。)
-	internal class MaterialATSToggleDrawer : MaterialPropertyDrawer
-	{
-		public MaterialATSToggleDrawer()
-		{
-		}
+	internal class MaterialATSToggleDrawer : MaterialPropertyDrawer {
+		public MaterialATSToggleDrawer() { }
+		public MaterialATSToggleDrawer(string keyword) { }
 
-		public MaterialATSToggleDrawer(string keyword)
-		{
-		}
+		protected virtual void SetKeyword(MaterialProperty prop, bool on) { }
 
-		protected virtual void SetKeyword(MaterialProperty prop, bool on)
-		{
-		}
-
-		static bool IsPropertyTypeSuitable(MaterialProperty prop)
-		{
+		static bool IsPropertyTypeSuitable(MaterialProperty prop) {
 			return prop.type == MaterialProperty.PropType.Float || prop.type == MaterialProperty.PropType.Range;
 		}
 
-		public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor)
-		{
+		public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor) {
 			return base.GetPropertyHeight(prop, label, editor);
 		}
 
-		public override void OnGUI(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
-		{
+		public override void OnGUI(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor) {
 			EditorGUI.BeginChangeCheck();
 
 			bool value = (Math.Abs(prop.floatValue) > 0.001f);
 			EditorGUI.showMixedValue = prop.hasMixedValue;
 			value = EditorGUI.Toggle(position, label, value);
 			EditorGUI.showMixedValue = false;
-			if (EditorGUI.EndChangeCheck())
-			{
+			if (EditorGUI.EndChangeCheck()) {
 				prop.floatValue = value ? 1.0f : 0.0f;
 				SetKeyword(prop, value);
 			}
 		}
 
-		public override void Apply(MaterialProperty prop)
-		{
+		public override void Apply(MaterialProperty prop) {
 			base.Apply(prop);
-			if (!IsPropertyTypeSuitable(prop))
+			if (!IsPropertyTypeSuitable(prop)) {
 				return;
+			}
 
-			if (prop.hasMixedValue)
+			if (prop.hasMixedValue) {
 				return;
+			}
 
 			SetKeyword(prop, (Math.Abs(prop.floatValue) > 0.001f));
 		}
 	}
-
 }
+
