@@ -933,13 +933,13 @@ namespace Yr32ArktoonShaders {
 		}
 
 		public static void DrawWithGroup(Action action) {
-			EditorGUILayout.BeginVertical( GUI.skin.box );
+			EditorGUILayout.BeginVertical(GUI.skin.box);
 			action();
 			EditorGUILayout.EndVertical();
 		}
 
 		public static void DrawWithGroupHorizontal(Action action) {
-			EditorGUILayout.BeginHorizontal( GUI.skin.box );
+			EditorGUILayout.BeginHorizontal(GUI.skin.box);
 			action();
 			EditorGUILayout.EndHorizontal();
 		}
