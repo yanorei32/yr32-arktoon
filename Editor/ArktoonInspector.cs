@@ -184,12 +184,6 @@ namespace Yr32ArktoonShaders {
 
 		public override void OnGUI(MaterialEditor materialEditor, MaterialProperty[] props) {
 			Material material = materialEditor.target as Material;
-
-			// バージョンを逐一確認して、アセットバージョンが高い場合はマテリアルをマイグレーション
-			if (material.GetInt("_Version") < ArktoonManager.AssetVersionInt) {
-				ArktoonMigrator.MigrateArktoonMaterial(material);
-			}
-
 			Shader shader = material.shader;
 
 			// shader.nameによって調整可能なプロパティを制御する。
@@ -863,46 +857,6 @@ namespace Yr32ArktoonShaders {
 						});
 					});
 				}
-
-				// Arktoon version info
-				string localVersion =  EditorUserSettings.GetConfigValue ("arktoon_version_local");
-				string remoteVersion = EditorUserSettings.GetConfigValue ("arktoon_version_remote");
-
-				UIHelper.ShurikenHeader("Arktoon-Shaders");
-				style.alignment = TextAnchor.MiddleRight;
-				style.normal.textColor = EditorGUIUtility.isProSkin ? Color.white : Color.black;
-				EditorGUILayout.LabelField("Your Version : " + localVersion, style);
-
-				if (!string.IsNullOrEmpty(remoteVersion)) {
-					Version local_v = new Version(localVersion);
-					Version remote_v = new Version(remoteVersion);
-
-					if (remote_v > local_v) {
-						style.normal.textColor = EditorGUIUtility.isProSkin ? Color.cyan : Color.blue;
-						EditorGUILayout.LabelField("Remote Version : " + remoteVersion, style);
-						EditorGUILayout.BeginHorizontal( GUI.skin.box );
-						{
-							style.alignment = TextAnchor.MiddleLeft;
-							EditorGUILayout.LabelField("New version available : ", style);
-							if (GUILayout.Button("Open download page.")) {
-								System.Diagnostics.Process.Start("https://github.com/synqark/Arktoon-Shaders/releases");
-							}
-						}
-						GUILayout.EndHorizontal();
-					} else {
-						EditorGUILayout.LabelField("Remote Version : " + remoteVersion, style);
-					}
-				}
-
-				// Docs
-				UIHelper.DrawWithGroupHorizontal(() => {
-					if (GUILayout.Button("How to use (Japanese)")) {
-						System.Diagnostics.Process.Start("https://synqark.github.io/Arktoon-Shaders-Doc/");
-					}
-					if(GUILayout.Button("README.md (English)")) {
-						System.Diagnostics.Process.Start("https://github.com/synqark/Arktoon-Shaders/blob/master/README.md");
-					}
-				});
 			}
 			EditorGUI.EndChangeCheck();
 		}
