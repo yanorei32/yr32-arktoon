@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
-namespace ArktoonShaders
+namespace Yr32ArktoonShaders
 {
     public class ArktoonInspector : ShaderGUI
     {

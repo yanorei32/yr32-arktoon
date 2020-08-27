@@ -255,5 +255,5 @@ Shader "arktoon/Stencil/Writer/Cutout" {
         }
     }
     FallBack "Standard"
-    CustomEditor "ArktoonShaders.ArktoonInspector"
+    CustomEditor "Yr32ArktoonShaders.ArktoonInspector"
 }

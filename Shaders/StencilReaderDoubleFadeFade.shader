@@ -313,5 +313,5 @@ Shader "arktoon/Stencil/Reader/Double/FadeFade" {
         }
     }
     FallBack "Standard"
-    CustomEditor "ArktoonShaders.ArktoonInspector"
+    CustomEditor "Yr32ArktoonShaders.ArktoonInspector"
 }

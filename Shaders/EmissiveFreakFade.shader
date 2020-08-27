@@ -257,5 +257,5 @@ Shader "arktoon/_Extra/EmissiveFreak/Fade" {
         }
     }
     FallBack "Standard"
-    CustomEditor "ArktoonShaders.ArktoonInspector"
+    CustomEditor "Yr32ArktoonShaders.ArktoonInspector"
 }

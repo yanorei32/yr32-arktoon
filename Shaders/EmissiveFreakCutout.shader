@@ -274,5 +274,5 @@ Shader "arktoon/_Extra/EmissiveFreak/AlphaCutout" {
         }
     }
     FallBack "Standard"
-    CustomEditor "ArktoonShaders.ArktoonInspector"
+    CustomEditor "Yr32ArktoonShaders.ArktoonInspector"
 }
