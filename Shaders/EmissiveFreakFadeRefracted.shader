@@ -6,7 +6,7 @@
 //     GamingRGB (https://github.com/sh1mc/GamingRGB)
 //       CC0 1.0 Universal, sh1mc
 
-Shader "arktoon/_Extra/EmissiveFreak/FadeRefracted" {
+Shader "yr32-arktoon/_Extra/EmissiveFreak/FadeRefracted" {
 	Properties {
 		// Double Sided
 		[ATSToggle]_UseDoubleSided ("Double Sided", Int ) = 0

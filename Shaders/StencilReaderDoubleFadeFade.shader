@@ -6,7 +6,7 @@
 //     GamingRGB (https://github.com/sh1mc/GamingRGB)
 //       CC0 1.0 Universal, sh1mc
 
-Shader "arktoon/Stencil/Reader/Double/FadeFade" {
+Shader "yr32-arktoon/Stencil/Reader/Double/FadeFade" {
 	Properties {
 		// Double Sided
 		[ATSToggle]_UseDoubleSided ("Double Sided", Int ) = 0
