@@ -1,10 +1,10 @@
 // yanorei32's arktoon (https://github.com/yanorei32/yr32-arktoon)
 //   BSD 2-Clause License, Copyright (c) 2020, Ray Yano
 //   CREDITS:
-//   Arktoon-Shaders (https://github.com/synqark/Arktoon-Shaders)
-//     MIT LICENSE, Copyright (c) 2018 synqark
-//   GamingRGB (https://github.com/sh1mc/GamingRGB)
-//     CC0 1.0 Universal, sh1mc
+//     Arktoon-Shaders (https://github.com/synqark/Arktoon-Shaders)
+//       MIT LICENSE, Copyright (c) 2018 synqark
+//     GamingRGB (https://github.com/sh1mc/GamingRGB)
+//       CC0 1.0 Universal, sh1mc
 
 float4 frag(VertexOutput i) : COLOR {
 
