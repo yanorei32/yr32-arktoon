@@ -25,6 +25,19 @@ Shader "yr32-arktoon/Stencil/Writer/Cutout" {
 		_BumpScale ("[Common] Normal scale", Range(0,2)) = 1
 		_EmissionMap ("[Common] Emission map", 2D) = "white" {}
 		[HDR]_EmissionColor ("[Common] Emission Color", Color) = (0,0,0,1)
+		// Gaming
+		[ATSToggle]_UseGaming ("[Gaming] Use Gaming", Int ) = 0
+		[ATSToggle]_GamingDecolor ("[Gaming] Gaming Decolor", Int ) = 1
+		_GamingRedStrength ("[Gaming] Red Strength", Range(0, 1) ) = 1
+		_GamingRedFrequency ("[Gaming] Red Frequency", Range(0.3, 3) ) = 1
+		_GamingGreenStrength ("[Gaming] Green Strength", Range(0, 1) ) = 1
+		_GamingGreenFrequency ("[Gaming] Green Frequency", Range(0.3, 3) ) = 1
+		_GamingBlueStrength ("[Gaming] Blue Strength", Range(0, 1) ) = 1
+		_GamingBlueFrequency ("[Gaming] Blue Frequency", Range(0.3, 3) ) = 1
+		_GamingCycle ("[Gaming] Cycle", Range(0.03, 0.5) ) = 0.1
+		_GamingScale ("[Gaming] Scale", Range(0.5, 3) ) = 1
+		_GamingColorIntensity ("[Gaming] Color Intensity", Range(0, 1) ) = 1
+		_GamingTextureIntensity ("[Gaming] Texture Intensity", Range(0, 1) ) = 0.5
 		// Emission Parallax
 		[ATSToggle]_UseEmissionParallax ("[Emission Parallax] Use Emission Parallax", Int ) = 0
 		_EmissionParallaxTex ("[Emission Parallax] Texture", 2D ) = "black" {}

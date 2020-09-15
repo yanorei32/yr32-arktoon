@@ -25,6 +25,33 @@ float4 frag(VertexOutput i) : COLOR {
 	#endif
 
 	float4 _MainTex_var = UNITY_SAMPLE_TEX2D(REF_MAINTEX, TRANSFORM_TEX(i.uv0, REF_MAINTEX));
+
+	if (_UseGaming) {
+		float xy = (i.uv0.x + i.uv0.y) * _GamingScale;
+
+		fixed3 gamingColor = fixed3(
+			_GamingRedStrength * (sin(_GamingRedFrequency * (_Time.y + xy) / _GamingCycle) + 1) / 2,
+			_GamingGreenStrength * (sin(_GamingGreenFrequency * (_Time.y + xy) / _GamingCycle + UNITY_PI * 2 / 3) + 1) / 2,
+			_GamingBlueStrength * (sin(_GamingBlueFrequency * (_Time.y + xy) / _GamingCycle + UNITY_PI * 4 / 3) + 1) / 2
+		);
+
+		fixed colorAverage = (_MainTex_var.x + _MainTex_var.y + _MainTex_var.z) / 3;
+
+		_MainTex_var = clamp(
+			fixed4(
+				_MainTex_var.x * (1 - _GamingDecolor) + colorAverage * _GamingDecolor,
+				_MainTex_var.y * (1 - _GamingDecolor) + colorAverage * _GamingDecolor,
+				_MainTex_var.z * (1 - _GamingDecolor) + colorAverage * _GamingDecolor,
+				1
+			) * _GamingTextureIntensity + fixed4(
+				gamingColor * _GamingColorIntensity,
+				1
+			),
+			0,
+			1
+		);
+	}
+
 	float3 Diffuse = (_MainTex_var.rgb*REF_COLOR.rgb);
 	Diffuse = lerp(Diffuse, Diffuse * i.color,_VertexColorBlendDiffuse);
 

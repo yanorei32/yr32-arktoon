@@ -17,6 +17,18 @@ namespace Yr32ArktoonShaders {
 		#region MaterialProperties
 		MaterialProperty BaseTexture;
 		MaterialProperty BaseColor;
+		MaterialProperty UseGaming;
+		MaterialProperty GamingDecolor;
+		MaterialProperty GamingRedStrength;
+		MaterialProperty GamingRedFrequency;
+		MaterialProperty GamingGreenStrength;
+		MaterialProperty GamingGreenFrequency;
+		MaterialProperty GamingBlueStrength;
+		MaterialProperty GamingBlueFrequency;
+		MaterialProperty GamingCycle;
+		MaterialProperty GamingScale;
+		MaterialProperty GamingColorIntensity;
+		MaterialProperty GamingTextureIntensity;
 		MaterialProperty Normalmap;
 		MaterialProperty BumpScale;
 		MaterialProperty EmissionMap;
@@ -200,6 +212,18 @@ namespace Yr32ArktoonShaders {
 			// FindProperties
 			BaseTexture = FindProperty("_MainTex", props, false);
 			BaseColor = FindProperty("_Color", props, false);
+			UseGaming = FindProperty("_UseGaming", props, false);
+			GamingDecolor = FindProperty("_GamingDecolor", props, false);
+			GamingRedStrength = FindProperty("_GamingRedStrength", props, false);
+			GamingRedFrequency = FindProperty("_GamingRedFrequency", props, false);
+			GamingGreenStrength = FindProperty("_GamingGreenStrength", props, false);
+			GamingGreenFrequency = FindProperty("_GamingGreenFrequency", props, false);
+			GamingBlueStrength = FindProperty("_GamingBlueStrength", props, false);
+			GamingBlueFrequency = FindProperty("_GamingBlueFrequency", props, false);
+			GamingCycle = FindProperty("_GamingCycle", props, false);
+			GamingScale = FindProperty("_GamingScale", props, false);
+			GamingColorIntensity = FindProperty("_GamingColorIntensity", props, false);
+			GamingTextureIntensity = FindProperty("_GamingTextureIntensity", props, false);
 			Normalmap = FindProperty("_BumpMap", props, false);
 			BumpScale = FindProperty("_BumpScale", props, false);
 			EmissionMap = FindProperty("_EmissionMap", props, false);
@@ -412,6 +436,30 @@ namespace Yr32ArktoonShaders {
 						materialEditor.TexturePropertySingleLine(new GUIContent("Main Texture", "Base Color Texture (RGB)"), BaseTextureSecondary, BaseColorSecondary);
 						materialEditor.TexturePropertySingleLine(new GUIContent("Normal Map", "Normal Map (RGB)"), NormalmapSecondary, BumpScaleSecondary);
 						materialEditor.TexturePropertySingleLine(new GUIContent("Emission", "Emission (RGB)"), EmissionMapSecondary, EmissionColorSecondary);
+					});
+				}
+
+				// Gaming
+				UIHelper.ShurikenHeader("Gaming");
+				materialEditor.DrawShaderPropertySameLIne(UseGaming);
+				var useGaming = UseGaming.floatValue;
+				if (useGaming > 0) {
+					UIHelper.DrawWithGroup(() => {
+						materialEditor.ShaderProperty(GamingDecolor, "Decolor");
+						materialEditor.ShaderProperty(GamingTextureIntensity, "Texture Intensity");
+						materialEditor.ShaderProperty(GamingColorIntensity, "Color Intensity");
+						materialEditor.ShaderProperty(GamingCycle, "Cycle");
+						materialEditor.ShaderProperty(GamingScale, "Scale");
+						UIHelper.DrawWithGroup(() => {
+							materialEditor.ShaderProperty(GamingRedStrength, "Red Strength");
+							materialEditor.ShaderProperty(GamingGreenStrength, "Green Strength");
+							materialEditor.ShaderProperty(GamingBlueStrength, "Blue Strength");
+						});
+						UIHelper.DrawWithGroup(() => {
+							materialEditor.ShaderProperty(GamingRedFrequency, "Red Frequency");
+							materialEditor.ShaderProperty(GamingGreenFrequency, "Green Frequency");
+							materialEditor.ShaderProperty(GamingBlueFrequency, "Blue Frequency");
+						});
 					});
 				}
 

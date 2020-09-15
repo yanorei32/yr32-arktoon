@@ -41,6 +41,20 @@
 #define REF_EMISSIONCOLOR _EmissionColor
 #endif
 
+// Gaming
+uniform float _UseGaming;
+uniform float _GamingDecolor;
+uniform float _GamingRedStrength;
+uniform float _GamingRedFrequency;
+uniform float _GamingGreenStrength;
+uniform float _GamingGreenFrequency;
+uniform float _GamingBlueStrength;
+uniform float _GamingBlueFrequency;
+uniform float _GamingCycle;
+uniform float _GamingScale;
+uniform float _GamingColorIntensity;
+uniform float _GamingTextureIntensity;
+
 // Alpha Mask
 UNITY_DECLARE_TEX2D_NOSAMPLER(_AlphaMask); uniform float4 _AlphaMask_ST;
 
